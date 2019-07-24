@@ -10,6 +10,9 @@ import HomePage from './Screens/HomePage';
 import List from './Screens/ListBook';
 import test from './Components/test';
 import UpdateBook from './Components/UpdateBook';
+import admin from "./Screens/admin";
+import BorrowList from './Screens/BorrowList';
+import Profile from './Screens/profile';
 
 import Register from './Screens/register';
 import Login from './Screens/login'
@@ -23,18 +26,24 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div style={{ height:'100%'}}>
-          
+        
           <Router>
-          <Nav />
+            <Nav/>
             <Route exact path={'/'} component={HomePage} />
+            <Route exact path={'/register/'} component={Register} />
+            <Route exact path={'/login/'} component={Login}/>
+            <Route path={'/logout/'} component={Logout} />
             <Route path ={'/books/'} component={List} />
             <Route path={'/book/:bookid'} component={book} />
+            <Route exact path={'/admin/'} component={admin} />
+            <Route path={'/admin/:userid'} component={BorrowList} />
+            <Route exact path={'/member/'} component={Profile} />
+
             <Route path={'/booq/:bookid'} component={denda} />
             <Route path={'/books/:bookid'} component={UpdateBook} />
             <Route path={'/test/'} component={test} />
-            <Route path={'/register/'} component={Register} />
-            <Route path={'/login/'} component={Login} />
-            <Route path={'/logout/'} component={Logout} />
+           
+          
           </Router>
           <Footer />
         </div>

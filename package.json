@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-alice-carousel": "^1.15.2",
     "react-dom": "^16.8.6",

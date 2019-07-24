@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Link } from "react-router-dom";
 import {
     Form,
     FormGroup,
@@ -36,6 +37,7 @@ class Register extends Component {
                 email: this.state.email,
                 fullname: this.state.fullname,
                 password: this.state.password,
+                user_ktp: this.state.user_ktp,
             });
 
             add()
@@ -49,7 +51,7 @@ class Register extends Component {
         };
         return (
             <div>
-                <Form style={{paddingTop:'100px'}}>
+                <Form style={{ paddingTop: '100px' }}>
                     <FormGroup row>
                         <Label sm={2} size="lg">
                             Email
@@ -61,6 +63,21 @@ class Register extends Component {
                                 onChange={(e) => this.setState({ email: e.target.value })}
                                 id="email"
                                 placeholder="Email..."
+                                bsSize="lg"
+                            />
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Label sm={2} size="lg">
+                            No KTP
+								</Label>
+                        <Col sm={8}>
+                            <Input
+                                type="text"
+                                name="ktp"
+                                onChange={(e) => this.setState({ user_ktp: e.target.value })}
+                                id="ktp"
+                                placeholder="No Ktp..."
                                 bsSize="lg"
                             />
                         </Col>
@@ -95,9 +112,10 @@ class Register extends Component {
                             />
                         </Col>
                     </FormGroup>
-                    <button type='submit' class="buttonSave" onClick={bookAdd.bind(this)}>
-							Sign Up
+                    <Link to='/login/'><button type='submit' class="buttonSave" onClick={bookAdd.bind(this)}>
+                        Sign Up
 						</button>
+                    </Link>
                 </Form>
             </div>
         );

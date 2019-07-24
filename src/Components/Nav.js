@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Link } from "react-router-dom";
 import '../assets/nav.css';
 
 class Nav extends Component {
@@ -28,17 +29,17 @@ class Nav extends Component {
         (<DropdownToggle>
            Hi {localStorage.name}
         </DropdownToggle>) :
-        (<DropdownToggle >
-          No Account
+        (<DropdownToggle href='/login'>
+            Login
         </DropdownToggle>)}
           {localStorage.jwtToken != null ?
         (<DropdownMenu>
-          <DropdownItem href='/logout'>Logout</DropdownItem>
+          {localStorage.status == 0 ? 
+          (<DropdownItem href='/admin/'>Member List</DropdownItem>) : 
+          (<DropdownItem href='/member/' >Profile</DropdownItem>)}
+          <DropdownItem href='/logout/'>Logout</DropdownItem>
         </DropdownMenu>):
-        (<DropdownMenu>
-          <DropdownItem href='/login'>Login</DropdownItem>
-          <DropdownItem href='/register'>Sign Up</DropdownItem>
-        </DropdownMenu>)}
+        ('')}
       </Dropdown>
       </div>
     );

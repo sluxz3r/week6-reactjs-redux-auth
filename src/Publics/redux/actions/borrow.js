@@ -14,6 +14,20 @@ export const getBorrows = (bookid) => {
   }
 }
 
+export const userBorrows = (user_ktp) => {
+  return {
+      type: 'USER_BORROW',
+      payload: axios.get(`http://localhost:6969/lah/user/${user_ktp}`,
+      {
+        headers: {
+            "authorization": "x-control-user",
+            "x-access-token": `token: ${localStorage.jwtToken}`,
+            "x-control-user": localStorage.userid
+        }
+      })
+  }
+}
+
 export const postBorrow = (data) =>{
     return {
         type:'POST_BORROW',

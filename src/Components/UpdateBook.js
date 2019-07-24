@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Link } from "react-router-dom";
 import {
 	Modal,
 	ModalHeader,
@@ -187,9 +188,9 @@ class Update extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <a href='/books' ><button class="buttonSave" onClick={editbooks.bind(this)}>
+                     <button class="buttonSave" onClick={editbooks.bind(this)}>
                             SAVE
-						</button></a>
+						</button>
                     </ModalFooter>
                 </Modal>
             </div>

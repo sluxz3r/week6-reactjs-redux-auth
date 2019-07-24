@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux'
 
 class Logout extends Component {
@@ -8,11 +8,14 @@ class Logout extends Component {
         localStorage.removeItem('jwtToken')
         localStorage.removeItem('userid')
         localStorage.removeItem('name')
+        localStorage.removeItem('status')
+        localStorage.removeItem('ktp')
     }
     render() {
         return (
             <div>
-                <Redirect></Redirect>
+                <h3 style={{paddingTop:'100px'}}>Terima Kasih</h3>
+                <Redirect to='/login/'/>
             </div>
         );
     }

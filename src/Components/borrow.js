@@ -19,6 +19,7 @@ class BorrowForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			user_id:localStorage.ktp,
 			id:this.props.id,
 			modal: false,
 			borrow: [],
@@ -63,23 +64,7 @@ class BorrowForm extends Component {
 						<b>User Data</b>
 					</ModalHeader>
 					<ModalBody>
-						<Form>
-							<FormGroup row>
-								<Label sm={3} size="lg">
-									No KTP
-								</Label>
-								<Col sm={9}>
-									<Input
-										type="text"
-										name="title"
-										onChange={(e) => this.setState({ user_id: e.target.value })}
-										id="title"
-										placeholder="No KTP"
-										bsSize="lg"
-									/>
-								</Col>
-							</FormGroup>
-						</Form>
+						<h2>No Ktp : {localStorage.ktp} </h2>
 					</ModalBody>
 					<ModalFooter>
 						<a href={`/book/${this.state.id}`}><button class="buttonSave" onClick={borrow.bind(this)}>
