@@ -15,6 +15,21 @@ export const getUser = () => {
     }
 };
 
+export const getUserId = (userid) => {
+    return {
+        type: 'GET_USERID',
+        payload: axios.get(`http://localhost:6969/user/${userid}`,
+            {
+                headers: {
+                    "authorization": "x-control-user",
+                    "x-access-token": `token: ${localStorage.jwtToken}`,
+                    "x-control-user": localStorage.userid
+                }
+            }),
+
+    }
+};
+
 export const deleteMember = (userid) => {
     return {
         type: 'DELETE_USER', userid,
@@ -42,14 +57,8 @@ export const login = (data) => {
         }).then( res => {
             const token = res.data.result.token;
             const userid = res.data.result.userid;
-            const name = res.data.result.fullname;
-            const status = res.data.result.status;
-            const ktp = res.data.result.user_ktp;
             localStorage.setItem('jwtToken', token);
             localStorage.setItem('userid', userid);
-            localStorage.setItem('name', name);
-            localStorage.setItem('status', status);
-            localStorage.setItem('ktp', ktp);
         })
     }
 

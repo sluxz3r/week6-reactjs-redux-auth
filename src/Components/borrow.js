@@ -19,14 +19,14 @@ class BorrowForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user_id:localStorage.ktp,
+			user_id:this.props.ktp,
 			id:this.props.id,
 			modal: false,
 			borrow: [],
 		};
 
 		this.toggle = this.toggle.bind(this);
-		console.log(this.state.id)
+		console.log(this.state.user_id)
 	};
 	
 	toggle() {
@@ -64,7 +64,7 @@ class BorrowForm extends Component {
 						<b>User Data</b>
 					</ModalHeader>
 					<ModalBody>
-						<h2>No Ktp : {localStorage.ktp} </h2>
+						<h2>No Ktp : {this.props.ktp} </h2>
 					</ModalBody>
 					<ModalFooter>
 						<a href={`/book/${this.state.id}`}><button class="buttonSave" onClick={borrow.bind(this)}>

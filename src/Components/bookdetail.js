@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getBook } from '../Publics/redux/actions/book';
 import { NavLink } from 'react-router-dom';
+
+import { getBook } from '../Publics/redux/actions/book';
+import { getUserId } from '../Publics/redux/actions/user';
+
 
 import Borrow from '../Components/borrow';
 import Restore from '../Components/restore';
@@ -11,17 +14,24 @@ import '../assets/bookdetails.css';
 class bookdetail extends Component {
     state = {
         books: [],
+        user: []
     };
 
     componentDidMount = async () => {
         const bookid = this.props.match.params.bookid
+        const userid = localStorage.userid;
         await this.props.dispatch(getBook(bookid));
         this.setState({
             books: this.props.book,
         });
+        await this.props.dispatch(getUserId(userid));
+        this.setState({
+            user: this.props.user,
+        });
     };
 
     render() {
+        //books details
         const { books } = this.state;
         const bookid = this.props.match.params.bookid
         const list = books.bookList;
@@ -30,6 +40,11 @@ class bookdetail extends Component {
         const status = list ? list.status_borrow : '';
         const writer = list ? list.writer : '';
         const des = list ? list.des : '';
+
+        //user detail token
+        const { user } = this.state;
+        const users = user.userList;
+        const ktp = users ? users[0].user_ktp : '';
 
         return (
             <div>
@@ -46,9 +61,9 @@ class bookdetail extends Component {
                             width: '100px'
                         }}>Back</button>
                     </NavLink>
-                        {localStorage.name != null ?
+                        {users != undefined ?
                         ( <div> {status == 1 ? (<Restore id={bookid} name={name} />) 
-                        : (<Borrow id={bookid} />)} </div> ):('')}
+                        : (<Borrow id={bookid} ktp={ktp}/>)} </div> ):('')}
 
                 </div>
                 <div>
@@ -89,6 +104,7 @@ class bookdetail extends Component {
 const mapStateToProps = state => {
     return {
         book: state.book,
+        user: state.user,
     };
 };
 

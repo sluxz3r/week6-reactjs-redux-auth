@@ -28,6 +28,28 @@ const register = (state = initialState, action) => {
                 isFulfilled: true,
                 userList : action.payload.data.result
             };
+         
+         // get user by token
+         case 'GET_USERID_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'GET_USERID_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'GET_USERID_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                userList : action.payload.data.result
+            };   
         //Post Book
         case 'REGISTER_PENDING':
             return {

@@ -24,7 +24,6 @@ class Member extends Component {
     render() {
         const { user } = this.state;
         const list = user.userList;
-        console.log(list);
         return (
             <div style={{ paddingTop:'100px'}}>
                 <div className="table-div"></div>

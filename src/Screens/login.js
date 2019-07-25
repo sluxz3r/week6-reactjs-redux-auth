@@ -6,7 +6,7 @@ import {
   FormGroup, Label, Input,
   Button,
 } from 'reactstrap';
-import { login } from '../Publics/redux/actions/user';
+import { login, getUserId } from '../Publics/redux/actions/user';
 
 class Login extends Component {
   constructor(props) {
@@ -17,6 +17,13 @@ class Login extends Component {
 
     this.toggle = this.toggle.bind(this);
   }
+  componentDidMount = async () => {
+    const userid = localStorage.userid;
+    await this.props.dispatch(getUserId(userid));
+    this.setState({
+      user: this.props.user,
+    });
+  };
 
   toggle() {
     this.setState({
@@ -34,14 +41,16 @@ class Login extends Component {
       this.setState((prevState) => ({
         modal: !prevState.modal
       }));
-      console.log(this.state.book);
     };
     let add = async () => {
       await this.props.dispatch(login(this.state.user[0]));
     };
+    const { user } = this.state;
+    const list = user.userList;
+    const name = list ? list[0].fullname : '';
     return (
       <Container style={{paddingTop:'100px'}}>
-          {localStorage.name != null ? (<h3>Login Sukses. Selamat Datang {localStorage.name}</h3>) : 
+          {list != undefined ? (<h3>Login Sukses. Selamat Datang {name}</h3>) : 
         (<div>
             <h2>Sign In</h2>
         <Form className="form">
@@ -80,7 +89,7 @@ class Login extends Component {
 }
 const mapStateToProps = state => {
   return {
-      book: state.book
+      user: state.user
   };
 };
 export default connect(mapStateToProps) (Login);

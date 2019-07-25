@@ -4,16 +4,23 @@ import { Link } from 'react-router-dom';
 import '../assets/BooksList.css';
 
 import { getBooks, deleteBook } from '../Publics/redux/actions/book';
+import { getUserId } from '../Publics/redux/actions/user';
 
 class Books extends Component {
     state = {
         index: '',
         books: [],
+        user:[],
     };
     componentDidMount = async () => {
+        const userid = localStorage.userid;
         await this.props.dispatch(getBooks());
         this.setState({
             books: this.props.book,
+        });
+        await this.props.dispatch(getUserId(userid));
+        this.setState({
+            user: this.props.user,
         });
     };
 
@@ -23,9 +30,15 @@ class Books extends Component {
     }
 
     render() {
+        //book list
         const { books } = this.state;
         const list = books.bookList;
-        console.log(list);
+        //user list
+        const { user } = this.state;
+        const users = user.userList;
+        const status = users ? users[0].status : '';
+        console.log(status)
+
         return (
             <div>
                 <div className="table-div"></div>
@@ -39,9 +52,8 @@ class Books extends Component {
                             <th>Category</th>
                             <th>Location</th>
                             <th>Status</th>
-                            {localStorage.status == 0 ?
-                            (<th>Action</th>):
-                            ('')}
+                            {status != 'admin' ?
+                            (''): (<th>Action</th>)}
                         </tr>
                     </thead>
                     {list &&
@@ -57,7 +69,9 @@ class Books extends Component {
                                         <td>{item.location}</td>
                                         {item.status_borrow == 1 ? 
                                         ( <td>Not Available</td> ) : ( <td>Available</td> )}
-                                        {localStorage.status == 0 ?
+                                        
+                                        {status != 'admin' ?
+                                        (''):
                                         (<td style={{ textAlign: 'center' }}>
                                             <Link to={`/books/${item.bookid}`}>
                                                 <button className='button1'>Edit</button>
@@ -65,8 +79,7 @@ class Books extends Component {
                                             <a href='/books/'>
                                                 <button className='button2' onClick={() => this.deleteBook(item.bookid)}>Delete</button>
                                             </a>
-                                        </td>) :
-                                        ('')}
+                                        </td>)}
                                     </tr>
                                 </tbody>
 
@@ -81,6 +94,7 @@ class Books extends Component {
 const mapStateToProps = state => {
     return {
         book: state.book,
+        user: state.user
     };
 };
 
