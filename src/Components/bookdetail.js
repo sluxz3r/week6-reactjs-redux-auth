@@ -53,8 +53,9 @@ class bookdetail extends Component {
         const users = user.userList;
         const ktp = users ? users[0].user_ktp : '';
         const fullname = users ? users[0].fullname : '';
-        const ktp_user = this.props.borrow.borrowList[0] ? this.props.borrow.borrowList[0] : '';
-
+        const ktp_user = this.props.borrow.borrowList[this.props.borrow.borrowList.length -1] ? this.props.borrow.borrowList[this.props.borrow.borrowList.length -1] : '';
+        console.log(ktp)
+        console.log(ktp_user.user_id)
         return (
             <div>
                 <div className='atas'>
