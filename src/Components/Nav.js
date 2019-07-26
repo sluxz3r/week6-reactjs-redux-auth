@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import '../assets/nav.css';
 
-import { getUserId } from '../Publics/redux/actions/user';
+import { getUserId, logout } from '../Publics/redux/actions/user';
 
 class Nav extends Component {
   constructor(props) {
@@ -32,6 +34,21 @@ class Nav extends Component {
     const list = user.userList;
     const name = list ? list[0].fullname : '';
     const status = list ? list[0].status : '';
+    const userid = list ? list[0].userid : '';
+
+    const del = async () => {
+      await this.props.dispatch(logout(userid));
+      localStorage.removeItem('userid')
+      localStorage.removeItem('jwtToken')
+      swal({
+        title: "Logout",
+        text: "Logout Success !!",
+        icon: "success",
+        button: "OK"
+      }).then(() => {
+          window.location.href = '/login/';
+        })
+  };
     return (
       <div className='nav'>
         <a href='/'><button className='butt'>BOOKS</button></a>
@@ -39,20 +56,23 @@ class Nav extends Component {
           paddingLeft: '900px'
         }}>
 
-          {list != undefined ?
+          {// eslint-disable-next-line
+            list != undefined ?
             (<DropdownToggle>
               Hi {name}
             </DropdownToggle>) :
-            (<DropdownToggle href='/login'>
+            (<DropdownToggle href='/login/'>
               Login
         </DropdownToggle>)}
 
-          {list != undefined ?
+          {// eslint-disable-next-line
+            list != undefined ?
             (<DropdownMenu>
-              {status == 'admin' ?
+              {// eslint-disable-next-line
+                status == 'admin' ?
                 (<DropdownItem href='/admin/'>Member List</DropdownItem>) :
                 (<DropdownItem href='/member/' >Profile</DropdownItem>)}
-              <DropdownItem href='/logout/'>Logout</DropdownItem>
+               <Link style={{textDecoration:'none'}} onClick={del.bind(this)}><DropdownItem>Logout</DropdownItem></Link>
             </DropdownMenu>) :
             ('')}
         </Dropdown>

@@ -26,9 +26,9 @@ const Cards = ({ list }) => {
                                     <h6 className='name'>{data.name}</h6>
                                     <p className='writer'>By : {data.writer}</p>
                                         {data.status_borrow == 1 ? (
-                                        <p className='status'>Not Available</p>
+                                        <p className='status' style={{backgroundColor:'red'}}>Not Available</p>
                                         ) : (
-                                        <p className='status'>Available</p>
+                                        <p className='status' style={{backgroundColor:'black'}}>Available</p>
                                         )}
                                 </div>
                             )

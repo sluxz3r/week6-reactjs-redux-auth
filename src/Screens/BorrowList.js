@@ -45,7 +45,7 @@ class BorrowList extends Component {
                     </table>
                 </div>
                 <div>
-                <h3 className="list-book">Borrow History</h3>
+                    <h3 className="list-book">Borrow History</h3>
                     <table class="darkTable">
                         <thead>
                             <tr>
@@ -60,15 +60,22 @@ class BorrowList extends Component {
                         {list &&
                             list.length > 0 &&
                             list.map((item, index) => {
+                                const tanggal_kembali = moment(item.tanggal_kembali).format("DD-MM-YYYY");
                                 return (
                                     <tbody>
                                         <tr key={index}>
                                             <td style={{ textAlign: 'center' }}>{index + 1}</td>
                                             <td style={{ textAlign: 'center' }}>{item.name}</td>
                                             <td style={{ textAlign: 'center' }}>{moment(item.tanggal_pinjam).format("DD-MM-YYYY")}</td>
-                                            <td style={{ textAlign: 'center' }}>{moment(item.tanggal_kembali).format("DD-MM-YYYY")}</td>
+                                            {// eslint-disable-next-line
+                                                tanggal_kembali == 'Invalid date' ?
+                                                (<td style={{ textAlign: 'center' }}>Still Borrowed</td>) :
+                                                (<td style={{ textAlign: 'center' }}>{tanggal_kembali}</td>)}
+                                            {console.log(moment(item.tanggal_kembali).format("DD-MM-YYYY"))}
                                             <td style={{ textAlign: 'center' }}>{moment(item.harus_kembali).format("DD-MM-YYYY")}</td>
-                                            <td style={{ textAlign: 'center' }}>{item.denda}</td>
+                                            {item.denda == null ?
+                                                (<td style={{ textAlign: 'center' }}>Still Borrowed</td>) :
+                                                (<td style={{ textAlign: 'center' }}>Rp. {item.denda}</td>)}
                                         </tr>
                                     </tbody>
 

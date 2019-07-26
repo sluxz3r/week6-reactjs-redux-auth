@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import '../assets/BookList.css';
-import { Redirect } from 'react-router-dom';
 
-import { getUser, deleteMember} from '../Publics/redux/actions/user'
+import { getUser, deleteMember } from '../Publics/redux/actions/user'
 
 class Member extends Component {
     state = {
@@ -18,16 +18,37 @@ class Member extends Component {
         });
     };
 
-    deleteUser = async (userid) => {
-        await this.props.dispatch(deleteMember(userid));
-        console.log(userid)
-    }
     render() {
+        const confirm = (userid) => {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will delete this User!!!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((buttons) => {
+                    if (buttons) {
+                        del(userid)
+                        swal("Poof! Your Member has been deleted!", {
+                            icon: "success",
+                        });
+                        window.location.href = '/admin/'
+                    } else {
+                        swal("Your Member is safe!");
+                    }
+                }).catch((dangerMode) => {
+                    window.location.href = '/admin/'
+                })
+        }
+        let del = async (userid) => {
+            await this.props.dispatch(deleteMember(userid));
+        };
         const { user } = this.state;
         const list = user.userList;
         return (
-            <div style={{ paddingTop:'10px'}}>
-            <div className="table-div"></div>
+            <div style={{ paddingTop: '10px' }}>
+                <div className="table-div"></div>
                 <h3 className="list-book">List All Users</h3>
                 <table class="darkTable">
                     <thead>
@@ -36,7 +57,7 @@ class Member extends Component {
                             <th>Ktp</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Action</th>    
+                            <th>Action</th>
                         </tr>
                     </thead>
                     {list &&
@@ -47,14 +68,12 @@ class Member extends Component {
                                     <tr key={index}>
                                         <td style={{ textAlign: 'center' }}>{index + 1}</td>
                                         <td style={{ textAlign: 'center' }}>{item.user_ktp}</td>
-                                        <td><Link style={{ textDecoration: 'none', color: 'black' }} to={{pathname:`/admin/${item.userid}`, data:item}} >{item.fullname}</Link></td>
+                                        <td><Link style={{ textDecoration: 'none', color: 'black' }} to={{ pathname: `/admin/${item.userid}`, data: item }} >{item.fullname}</Link></td>
                                         <td>{item.email}</td>
                                         <td style={{ textAlign: 'center' }}>
-                                            <a href='/admin/'>
-                                                <button className='button2' onClick={() => this.deleteUser(item.userid)}>Delete</button>
-                                            </a>
+                                            <button className='button2' onClick={() => confirm(item.userid)}>Delete</button>
                                         </td>
-                                       
+
                                     </tr>
                                 </tbody>
 

@@ -7,9 +7,6 @@ class Logout extends Component {
         super(props)
         localStorage.removeItem('jwtToken')
         localStorage.removeItem('userid')
-        localStorage.removeItem('name')
-        localStorage.removeItem('status')
-        localStorage.removeItem('ktp')
     }
     render() {
         return (

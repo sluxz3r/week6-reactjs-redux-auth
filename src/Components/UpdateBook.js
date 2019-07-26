@@ -12,7 +12,7 @@ import {
 	Col,
 	Input
 } from 'reactstrap';
-
+import swal from 'sweetalert';
 import '../assets/BookForm.css'
 
 import { getBook, updateBook } from '../Publics/redux/actions/book';
@@ -85,10 +85,18 @@ class Update extends Component {
 
         };
         
-        let edit = async () => {
-            
-            await this.props.dispatch(updateBook((this.state.tmp[0]), this.props.match.params.bookid));
-            
+        let edit = async () => {  
+            await this.props.dispatch(updateBook((this.state.tmp[0]), this.props.match.params.bookid))
+            .then(() => {
+                swal({
+                  title: "Update",
+                  text: `Update Success`,
+                  icon: "success",
+                  button: "OK"
+                }).then(() => {
+                  window.location.href = '/books/';
+                })
+              })
         };
         
         const list = this.state.books.bookList;

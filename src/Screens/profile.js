@@ -41,7 +41,8 @@ class Profile extends Component {
         const status = users ? users[0].status : '';
         return (
             <div>
-                {users == undefined ? (<h3 style={{ textAlign: "center", textDecoration: 'none', paddingTop: '100px' }}>Sorry! <a href='/login/' style={{ textDecoration: 'none' }}>Login</a> First</h3>)
+                {// eslint-disable-next-line
+                    users == undefined ? (<h3 style={{ textAlign: "center", textDecoration: 'none', paddingTop: '100px' }}>Sorry! <a href='/login/' style={{ textDecoration: 'none' }}>Login</a> First</h3>)
                     : (<div style={{ paddingTop: '100px' }}>
                         <table style={{ marginLeft: '30px' }}>
                             <tr>
@@ -58,7 +59,8 @@ class Profile extends Component {
                             </tr>
                             <tr>
                                 <th>Status</th>
-                                {status != 1 ?
+                                {// eslint-disable-next-line
+                                    status != 1 ?
                                     ('') : (<th>: Member</th>)}
                             </tr>
                         </table>
@@ -78,15 +80,21 @@ class Profile extends Component {
                                 {list &&
                                     list.length > 0 &&
                                     list.map((item, index) => {
+                                        const tanggal_kembali = moment(item.tanggal_kembali).format("DD-MM-YYYY");
                                         return (
                                             <tbody>
                                                 <tr key={index}>
                                                     <td style={{ textAlign: 'center' }}>{index + 1}</td>
                                                     <td style={{ textAlign: 'center' }}>{item.name}</td>
                                                     <td style={{ textAlign: 'center' }}>{moment(item.tanggal_pinjam).format("DD-MM-YYYY")}</td>
-                                                    <td style={{ textAlign: 'center' }}>{moment(item.tanggal_kembali).format("DD-MM-YYYY")}</td>
+                                                    {// eslint-disable-next-line
+                                                        tanggal_kembali == 'Invalid date' ?
+                                                        (<td style={{ textAlign: 'center' }}>Still Borrowed</td>) :
+                                                        (<td style={{ textAlign: 'center' }}>{tanggal_kembali}</td>)}
                                                     <td style={{ textAlign: 'center' }}>{moment(item.harus_kembali).format("DD-MM-YYYY")}</td>
-                                                    <td style={{ textAlign: 'center' }}>{item.denda}</td>
+                                                    {item.denda == null ?
+                                                        (<td style={{ textAlign: 'center' }}>Still Borrowed</td>) :
+                                                        (<td style={{ textAlign: 'center' }}>Rp. {item.denda}</td>)}
                                                 </tr>
                                             </tbody>
 

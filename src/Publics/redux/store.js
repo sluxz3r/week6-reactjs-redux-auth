@@ -1,8 +1,6 @@
 import {createStore, applyMiddleware} from 'redux';
 import {createLogger} from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
-import * as jwtDecode from 'jwt-decode';
-
 
 import reducers from './reducers';
 const logger = createLogger();

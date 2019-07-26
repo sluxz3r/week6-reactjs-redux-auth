@@ -71,16 +71,20 @@ class bookdetail extends Component {
                             width: '100px'
                         }}>Back</button>
                     </NavLink>
-                        {users != undefined ?
-                        ( <div> {status == 1 ? (
-                        <div>{ktp == ktp_user.user_id  ?  (<Restore id={bookid} name={name} />):('')}</div>
+                        {// eslint-disable-next-line
+                            users != undefined ?
+                        ( <div> {// eslint-disable-next-line
+                            status == 1 ? (
+                        <div>{// eslint-disable-next-line
+                            ktp == ktp_user.user_id  ?  (<Restore id={bookid} name={name} />):('')}</div>
                         ) 
                         : (<Borrow id={bookid} ktp={ktp} fullname={fullname} name={name}/>)} </div> ):('')}
 
                 </div>
                 <div>
                 <img className='gambar2' src={image} alt="gambar" />
-                {status == 1 ? (
+                {// eslint-disable-next-line
+                    status == 1 ? (
                         <button style={{
                             color: 'white',
                             backgroundColor: 'red',

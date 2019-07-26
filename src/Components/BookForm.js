@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import swal from 'sweetalert';
 import {
 	Modal,
 	ModalHeader,
@@ -75,7 +76,17 @@ class BookForm extends Component {
 			console.log(this.state.book);
 		};
 		let add = async () => {
-			await this.props.dispatch(postBook(this.state.book[0]));
+			await this.props.dispatch(postBook(this.state.book[0]))
+			.then(() => {
+				swal({
+				  title: "Add Book",
+				  text: `Add Book Success`,
+				  icon: "success",
+				  button: "OK"
+				}).then(() => {
+				  window.location.href = '/books/';
+				})
+			  })
 		};
 		return (
 			<div>
@@ -185,9 +196,9 @@ class BookForm extends Component {
 						</Form>
 					</ModalBody>
 					<ModalFooter>
-						<a href='/books/'><button type='submit' class="buttonSave" onClick={bookAdd.bind(this)}>
+						<button type='submit' class="buttonSave" onClick={bookAdd.bind(this)}>
 							SAVE
-						</button></a>
+						</button>
 					</ModalFooter>
 				</Modal>
 			</div>

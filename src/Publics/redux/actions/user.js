@@ -70,3 +70,11 @@ export const login = (data) => {
     }
 
 };
+
+export const logout = (userid) => {
+    return {
+        type: 'LOGOUT', userid,
+        payload: axios.patch(`http://localhost:6969/token/${userid}`)
+     
+    }
+};
