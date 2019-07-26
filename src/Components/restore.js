@@ -62,7 +62,12 @@ class Restore extends Component {
 		const { borrow } = this.state;
 		const list = borrow.borrowList;
 	
-		console.log("list", list)
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0');
+		var yyyy = today.getFullYear();
+
+		const date = dd + ' - ' + mm + ' - ' + yyyy;
 		return (
 			<div>
 				<button style={{
@@ -74,14 +79,23 @@ class Restore extends Component {
 					onClick={this.toggle} >
 					Return
 				</button>
-				<Modal isOpen={this.state.modal} toggle={this.toggle} className="{this.props.className} modal-lg">
+				<Modal isOpen={this.state.modal} toggle={this.toggle} className="{this.props.className} modal-md">
 					
 					<ModalHeader toggle={this.toggle}>
 						<b>Restore</b>
 					</ModalHeader>
 
 					<ModalBody>
-						<b>Name : {this.props.name}</b>
+						<table style={{marginLeft:'30px'}}>
+							<tr>
+								<th style={{paddingRight:'50px'}}>Book Title</th>
+								<th>: {this.props.name}</th>
+							</tr>
+							<tr>
+								<th style={{paddingRight:'50px'}}>Date Return</th>
+								<th>: {date}</th>
+							</tr>
+						</table>
 					</ModalBody>
 
 					<ModalFooter>

@@ -25,7 +25,7 @@ class Denda extends Component {
     }
 
     componentDidMount = async () => {
-        const bookid = this.props.match.params.bookid
+        const bookid = this.props.match.params.bookid;
         await this.props.dispatch(getBorrows(bookid));
         this.setState({
             borrow: this.props.borrow
@@ -46,7 +46,7 @@ class Denda extends Component {
                 })
             })
         }
-        console.log(this.state.denda)
+        console.log(this.state.borrow)
     };
 
     toggle() {
@@ -70,16 +70,16 @@ class Denda extends Component {
         let update = async () => {
             await this.props.dispatch(updateBorrow((this.state.updates[0]), this.props.match.params.bookid))
         };
-
         return (
             <div>
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className="{this.props.className} modal-lg">
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className="{this.props.className} modal-md">
                     <ModalHeader toggle={this.toggle}>
-                        <b>Denda</b>
+                    {this.state.denda > 0 ? (<b>Penalty Fee</b>) : ('')}
                     </ModalHeader>
                     <ModalBody>
-                        {this.state.denda < 0 ? (<p>Terima Kasih</p>) :
-                        (<p>Maaf Anda Terlambat {this.state.hari} Hari <br />Rp. {this.state.denda}</p>)}
+                        {this.state.denda > 0 ?
+                        (<h2 style={{marginLeft:'30px'}}>Sorry You are Late {this.state.hari} Days <br />Rp. {this.state.denda}</h2>) : 
+                        (<h3 style={{marginLeft:'150px'}}>Thank You</h3>)}
                     </ModalBody>
                     <ModalFooter>
                         <a href={`/book/${this.props.match.params.bookid}`}><button class="buttonSave" onClick={editBorrows.bind(this)}>

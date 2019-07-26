@@ -25,40 +25,56 @@ class BorrowList extends Component {
         return (
             <div style={{ paddingTop: '100px' }}>
                 <div>
-                    <h3>Nama : {this.props.location.data.fullname}</h3>
-                    <h3>No KTP : {this.props.location.data.user_ktp}</h3>
-                    <h3>Email : {this.props.location.data.email}</h3>
+                    <table style={{ marginLeft: '30px' }}>
+                        <tr>
+                            <th style={{ paddingRight: '40px' }}> Name</th>
+                            <th>: {this.props.location.data.fullname}</th>
+                        </tr>
+                        <tr>
+                            <th>No KTP</th>
+                            <th>: {this.props.location.data.user_ktp}</th>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <th>: {this.props.location.data.email}</th>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <th>: Member</th>
+                        </tr>
+                    </table>
                 </div>
                 <div>
-                <table class="darkTable">
-                    <thead>
-                        <tr>
-                            <th >No</th>
-                            <th>Book Name</th>
-                            <th>Borrow Date</th>
-                            <th>Return Date</th>
-                            <th>Expired Date</th>    
-                            <th>Penalty Fee</th>    
-                        </tr>
-                    </thead>
-                    {list &&
-                        list.length > 0 &&
-                        list.map((item, index) => {
-                            return (
-                                <tbody>
-                                    <tr key={index}>
-                                        <td style={{ textAlign: 'center' }}>{index + 1}</td>
-                                        <td style={{ textAlign: 'center' }}>{item.name}</td>
-                                        <td style={{ textAlign: 'center' }}>{moment(item.tanggal_pinjam).format("DD-MM-YYYY")}</td>
-                                        <td style={{ textAlign: 'center' }}>{moment(item.tanggal_kembali).format("DD-MM-YYYY")}</td>
-                                        <td style={{ textAlign: 'center' }}>{moment(item.harus_kembali).format("DD-MM-YYYY")}</td>
-                                        <td style={{ textAlign: 'center' }}>{item.denda}</td>
-                                    </tr>
-                                </tbody>
+                <h3 className="list-book">Borrow History</h3>
+                    <table class="darkTable">
+                        <thead>
+                            <tr>
+                                <th >No</th>
+                                <th>Book Name</th>
+                                <th>Borrow Date</th>
+                                <th>Return Date</th>
+                                <th>Expired Date</th>
+                                <th>Penalty Fee</th>
+                            </tr>
+                        </thead>
+                        {list &&
+                            list.length > 0 &&
+                            list.map((item, index) => {
+                                return (
+                                    <tbody>
+                                        <tr key={index}>
+                                            <td style={{ textAlign: 'center' }}>{index + 1}</td>
+                                            <td style={{ textAlign: 'center' }}>{item.name}</td>
+                                            <td style={{ textAlign: 'center' }}>{moment(item.tanggal_pinjam).format("DD-MM-YYYY")}</td>
+                                            <td style={{ textAlign: 'center' }}>{moment(item.tanggal_kembali).format("DD-MM-YYYY")}</td>
+                                            <td style={{ textAlign: 'center' }}>{moment(item.harus_kembali).format("DD-MM-YYYY")}</td>
+                                            <td style={{ textAlign: 'center' }}>{item.denda}</td>
+                                        </tr>
+                                    </tbody>
 
-                            )
-                        })}
-                </table>
+                                )
+                            })}
+                    </table>
                 </div>
 
             </div>

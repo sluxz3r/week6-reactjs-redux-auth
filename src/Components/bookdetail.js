@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import { getBook } from '../Publics/redux/actions/book';
 import { getUserId } from '../Publics/redux/actions/user';
+import { getBorrows } from '../Publics/redux/actions/borrow';
 
 
 import Borrow from '../Components/borrow';
@@ -14,7 +15,8 @@ import '../assets/bookdetails.css';
 class bookdetail extends Component {
     state = {
         books: [],
-        user: []
+        user: [],
+        borrow:[],
     };
 
     componentDidMount = async () => {
@@ -28,6 +30,11 @@ class bookdetail extends Component {
         this.setState({
             user: this.props.user,
         });
+
+		await this.props.dispatch(getBorrows(bookid));
+		this.setState({
+			borrow: this.props.borrow
+		});
     };
 
     render() {
@@ -45,6 +52,8 @@ class bookdetail extends Component {
         const { user } = this.state;
         const users = user.userList;
         const ktp = users ? users[0].user_ktp : '';
+        const fullname = users ? users[0].fullname : '';
+        const ktp_user = this.props.borrow.borrowList[0] ? this.props.borrow.borrowList[0] : '';
 
         return (
             <div>
@@ -62,8 +71,10 @@ class bookdetail extends Component {
                         }}>Back</button>
                     </NavLink>
                         {users != undefined ?
-                        ( <div> {status == 1 ? (<Restore id={bookid} name={name} />) 
-                        : (<Borrow id={bookid} ktp={ktp}/>)} </div> ):('')}
+                        ( <div> {status == 1 ? (
+                        <div>{ktp == ktp_user.user_id  ?  (<Restore id={bookid} name={name} />):('')}</div>
+                        ) 
+                        : (<Borrow id={bookid} ktp={ktp} fullname={fullname} name={name}/>)} </div> ):('')}
 
                 </div>
                 <div>
@@ -105,6 +116,7 @@ const mapStateToProps = state => {
     return {
         book: state.book,
         user: state.user,
+        borrow: state.borrow,
     };
 };
 

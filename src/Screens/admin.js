@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../assets/BookList.css';
+import { Redirect } from 'react-router-dom';
 
 import { getUser, deleteMember} from '../Publics/redux/actions/user'
 
@@ -25,8 +26,8 @@ class Member extends Component {
         const { user } = this.state;
         const list = user.userList;
         return (
-            <div style={{ paddingTop:'100px'}}>
-                <div className="table-div"></div>
+            <div style={{ paddingTop:'10px'}}>
+            <div className="table-div"></div>
                 <h3 className="list-book">List All Users</h3>
                 <table class="darkTable">
                     <thead>

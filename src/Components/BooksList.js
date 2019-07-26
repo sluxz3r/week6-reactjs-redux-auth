@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import '../assets/BooksList.css';
 
 import { getBooks, deleteBook } from '../Publics/redux/actions/book';
@@ -25,9 +26,28 @@ class Books extends Component {
     };
 
     deleteBook = async (bookid) => {
-        await this.props.dispatch(deleteBook(bookid));
+        await this.props.dispatch(deleteBook(bookid))
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this book!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("Poof! Your book has been deleted!", {
+                icon: "success",
+              });
+            } else {
+              swal("Your file is safe!");
+            }
+          }).then(() => {
+            window.location.href = '/books/';
+          })
+        
         console.log(bookid)
-    }
+        }
 
     render() {
         //book list
@@ -37,7 +57,6 @@ class Books extends Component {
         const { user } = this.state;
         const users = user.userList;
         const status = users ? users[0].status : '';
-        console.log(status)
 
         return (
             <div>
@@ -76,9 +95,9 @@ class Books extends Component {
                                             <Link to={`/books/${item.bookid}`}>
                                                 <button className='button1'>Edit</button>
                                             </Link>
-                                            <a href='/books/'>
+                                            
                                                 <button className='button2' onClick={() => this.deleteBook(item.bookid)}>Delete</button>
-                                            </a>
+                                            
                                         </td>)}
                                     </tr>
                                 </tbody>

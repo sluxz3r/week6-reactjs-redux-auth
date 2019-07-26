@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
+import swal from 'sweetalert';
 import {
-    Form,
-    FormGroup,
-    Label,
-    Col,
-    Input
-} from 'reactstrap';
+    Container, Col, Form,
+    FormGroup, Label, Input,
+    Button,
+  } from 'reactstrap';
 
 import { register } from '../Publics/redux/actions/user';
 
@@ -32,7 +31,7 @@ class Register extends Component {
     }
 
     render() {
-        const bookAdd = () => {
+        const userAdd = () => {
             this.state.user.push({
                 email: this.state.email,
                 fullname: this.state.fullname,
@@ -47,83 +46,89 @@ class Register extends Component {
             console.log(this.state.user);
         };
         let add = async () => {
-            await this.props.dispatch(register(this.state.user[0]));
+            await this.props.dispatch(register(this.state.user[0]))
+                .then(() => {
+                    swal({
+                        title: "Register",
+                        text: "Register Success !!",
+                        icon: "success",
+                        button: "OK"
+                    }).then(() => {
+                        window.location.href = '/login';
+                    })
+                })
+                .catch(() => {
+                    swal({
+                        title: "Register Failed",
+                        text: "Email is not Avalaible",
+                        icon: "warning",
+                        buttons: "OK"
+                    })
+                })
         };
         return (
-            <div>
-                <Form style={{ paddingTop: '100px' }}>
-                    <FormGroup row>
-                        <Label sm={2} size="lg">
-                            Email
-								</Label>
-                        <Col sm={8}>
-                            <Input
-                                type="email"
-                                name="email"
-                                onChange={(e) => this.setState({ email: e.target.value })}
-                                id="email"
-                                placeholder="Email..."
-                                bsSize="lg"
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                        <Label sm={2} size="lg">
-                            No KTP
-								</Label>
-                        <Col sm={8}>
-                            <Input
-                                type="text"
-                                name="ktp"
-                                onChange={(e) => this.setState({ user_ktp: e.target.value })}
-                                id="ktp"
-                                placeholder="No Ktp..."
-                                bsSize="lg"
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                        <Label sm={2} size="lg">
-                            Full Name
-								</Label>
-                        <Col sm={8}>
-                            <Input
-                                type="text"
-                                name="name"
-                                onChange={(e) => this.setState({ fullname: e.target.value })}
-                                id="name"
-                                placeholder="Full Name..."
-                                bsSize="lg"
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                        <Label sm={2} size="lg">
-                            Password
-								</Label>
-                        <Col sm={8}>
-                            <Input
-                                type="password"
-                                name="password"
-                                onChange={(e) => this.setState({ password: e.target.value })}
-                                id="password"
-                                placeholder="Password..."
-                                bsSize="lg"
-                            />
-                        </Col>
-                    </FormGroup>
-                    <Link to='/login/'><button type='submit' class="buttonSave" onClick={bookAdd.bind(this)}>
-                        Sign Up
-						</button>
-                    </Link>
-                </Form>
-            </div>
+            <Container style={{ paddingTop:'100px'}}>
+          <h2>Sign Up</h2>
+          <Form className="fo">
+            <Col>
+              <FormGroup>
+                <Label>Email</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  onChange={(e) => this.setState({ email: e.target.value })}
+                  id="exampleEmail"
+                  placeholder="myemail@email.com"
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label>Fullname</Label>
+                <Input
+                  type="text"
+                  name="name"
+                  onChange={(e) => this.setState({ fullname: e.target.value })}
+                  id="exampleEmail"
+                  placeholder="your name..."
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label>ID Card</Label>
+                <Input
+                  type="text"
+                  name="card"
+                  onChange={(e) => this.setState({ user_ktp: e.target.value })}
+                  id="card"
+                  placeholder="Your ID Card..."
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label for="examplePassword">Password</Label>
+                <Input
+                  type="password"
+                  name="password"
+                  onChange={(e) => this.setState({ password: e.target.value })}
+                  id="examplePassword"
+                  placeholder="password..."
+                />
+              </FormGroup>
+            </Col>
+            <Button onClick={userAdd.bind(this)}>Sign Up</Button>
+            <br />
+            <span>Already registered <Link to="login">go to login</Link></span>
+          </Form>
+        </Container>
         );
     }
 }
 const mapStateToProps = state => {
     return {
-        book: state.book
+        user: state.user
     };
 };
 export default connect(mapStateToProps)(Register);

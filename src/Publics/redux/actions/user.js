@@ -33,7 +33,14 @@ export const getUserId = (userid) => {
 export const deleteMember = (userid) => {
     return {
         type: 'DELETE_USER', userid,
-        payload: axios.delete(`http://localhost:6969/member/${userid}`)
+        payload: axios.delete(`http://localhost:6969/member/${userid}`,
+        {
+            headers: {
+                "authorization": "x-control-user",
+                "x-access-token": `token: ${localStorage.jwtToken}`,
+                "x-control-user": localStorage.userid
+            }
+        }),
     }
 
 };

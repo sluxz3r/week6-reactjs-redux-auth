@@ -36,7 +36,7 @@ class Nav extends Component {
       <div className='nav'>
         <a href='/'><button className='butt'>BOOKS</button></a>
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{
-          paddingLeft: '800px'
+          paddingLeft: '900px'
         }}>
 
           {list != undefined ?
