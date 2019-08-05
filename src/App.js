@@ -36,7 +36,7 @@ class App extends Component {
             <Route path ={'/books/'} component={List} />
             <Route path={'/book/:bookid'} component={book} />
             <Route exact path={'/admin/'} component={admin} />
-            <Route path={'/admin/:userid'} component={BorrowList} />
+            <Route path={'/member/:userid'} component={BorrowList} />
             <Route exact path={'/member/'} component={Profile} />
 
             <Route path={'/booq/:bookid'} component={denda} />

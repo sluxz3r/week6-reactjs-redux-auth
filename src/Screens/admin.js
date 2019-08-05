@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import '../assets/BookList.css';
 
-import { getUser, deleteMember } from '../Publics/redux/actions/user'
+import { getUser, deleteMember } from '../Publics/redux/actions/member';
 
 class Member extends Component {
     state = {
         index: '',
-        user: [],
+        member: [],
     };
     componentDidMount = async () => {
         await this.props.dispatch(getUser());
         this.setState({
-            user: this.props.user,
+            member: this.props.member,
         });
     };
 
@@ -44,8 +44,8 @@ class Member extends Component {
         let del = async (userid) => {
             await this.props.dispatch(deleteMember(userid));
         };
-        const { user } = this.state;
-        const list = user.userList;
+        const { member } = this.state;
+        const list = member.memberList;
         return (
             <div style={{ paddingTop: '10px' }}>
                 <div className="table-div"></div>
@@ -68,7 +68,7 @@ class Member extends Component {
                                     <tr key={index}>
                                         <td style={{ textAlign: 'center' }}>{index + 1}</td>
                                         <td style={{ textAlign: 'center' }}>{item.user_ktp}</td>
-                                        <td><Link style={{ textDecoration: 'none', color: 'black' }} to={{ pathname: `/admin/${item.userid}`, data: item }} >{item.fullname}</Link></td>
+                                        <td><Link style={{ textDecoration: 'none', color: 'black' }} to={{ pathname: `/member/${item.userid}`, data: item }} >{item.fullname}</Link></td>
                                         <td>{item.email}</td>
                                         <td style={{ textAlign: 'center' }}>
                                             <button className='button2' onClick={() => confirm(item.userid)}>Delete</button>
@@ -87,7 +87,7 @@ class Member extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user,
+        member: state.member,
     };
 };
 
