@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import '../assets/BooksList.css';
 
-import { getBooks, deleteBook } from '../Publics/redux/actions/book';
+import { getPagination, deleteBook } from '../Publics/redux/actions/book';
 import { getUserId } from '../Publics/redux/actions/user';
 
 class Books extends Component {
@@ -15,7 +15,7 @@ class Books extends Component {
     };
     componentDidMount = async () => {
         const userid = localStorage.userid;
-        await this.props.dispatch(getBooks());
+        await this.props.dispatch(getPagination());
         this.setState({
             books: this.props.book,
         });

@@ -15,6 +15,21 @@ export const getBooks = () => {
     }
 };
 
+export const getPagination = () => {
+    return {
+        type: 'GET_BOOKS',
+        payload: axios.get('http://localhost:6969/cek/get',
+            {
+                headers: {
+                    "authorization": "x-control-user",
+                    "x-access-token": `token: ${localStorage.jwtToken}`,
+                    "x-control-user": localStorage.userid
+                }
+            }),
+
+    }
+};
+
 export const getBook = (bookid) => {
     return {
         type: 'GET_BOOK', bookid,

@@ -23,12 +23,12 @@ class BookForm extends Component {
 		super(props);
 		this.state = {
 			modal: false,
-			act: 0,
 			book: [],
+			file:null
 		};
 
 		this.toggle = this.toggle.bind(this);
-		this.toggleDrop = this.toggleDrop.bind(this);
+		this.onChangeFile = this.onChangeFile.bind(this)
 	}
 
 	toggle() {
@@ -36,11 +36,12 @@ class BookForm extends Component {
 			modal: !this.state.modal
 		});
 	}
-	toggleDrop() {
-		this.setState((prevState) => ({
-			dropdownOpen: !prevState.dropdownOpen
-		}));
-	}
+	onChangeFile = (e) => {
+        console.log(e.target.files[0])
+        this.setState({
+            file: e.target.files[0],
+        })
+    }
 
 	render() {
 		const bookAdd = () => {
@@ -60,23 +61,23 @@ class BookForm extends Component {
 				default:
 					fk_loc = 1;
 			}
-			this.state.book.push({
-				name: this.state.name,
-				writer: this.state.writer,
-				des: this.state.des,
-				image: this.state.image,
-				fk_cat,
-				fk_loc,
-			});
+			const dataFile = new FormData()
+			dataFile.append('image', this.state.file)
+			dataFile.append('name', this.state.name)
+			dataFile.append('writer', this.state.writer)
+			dataFile.append('fk_cat', fk_cat)
+			dataFile.append('fk_loc', fk_loc)
+			dataFile.append('des', this.state.des)
+			
 
-			add()
+			add(dataFile)
 			this.setState((prevState) => ({
 				modal: !prevState.modal
 			}));
 			console.log(this.state.book);
 		};
-		let add = async () => {
-			await this.props.dispatch(postBook(this.state.book[0]))
+		let add = async (data) => {
+			await this.props.dispatch(postBook(data))
 			.then(() => {
 				swal({
 				  title: "Add Book",
@@ -137,12 +138,13 @@ class BookForm extends Component {
 								</Label>
 								<Col sm={8}>
 									<Input
-										type="url"
-										name="image"
-										onChange={(e) => this.setState({ image: e.target.value })}
-										id="image"
+										type="file"
+										name="title"
+										onChange={this.onChangeFile}
+										id="title"
 										placeholder="Image..."
 										bsSize="lg"
+										style={{ height: 40, fontSize: 12 }}
 									/>
 								</Col>
 							</FormGroup>

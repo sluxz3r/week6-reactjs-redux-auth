@@ -22,6 +22,7 @@ const Cards = ({ list }) => {
                                 <div className='get-all' key={index}>
                                     <Link to={`/book/${data.bookid}`}>
                                         <img className='image-all' src={data.image} alt='ah' />
+                                        {console.log(data.image)}
                                     </Link>
                                     <h6 className='name'>{data.name}</h6>
                                     <p className='writer'>By : {data.writer}</p>
