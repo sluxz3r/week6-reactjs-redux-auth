@@ -1,9 +1,10 @@
 import axios from 'axios';
+const url = 'https://sluxzer-library.herokuapp.com';
 
 export const getBorrows = (bookid) => {
   return {
       type: 'GET_BORROW',
-      payload: axios.get(`http://localhost:6969/lah/${bookid}`,
+      payload: axios.get(`${url}/lah/${bookid}`,
       {
         headers: {
             "authorization": "x-control-user",
@@ -17,7 +18,7 @@ export const getBorrows = (bookid) => {
 export const userBorrows = (user_ktp) => {
   return {
       type: 'USER_BORROW',
-      payload: axios.get(`http://localhost:6969/lah/user/${user_ktp}`,
+      payload: axios.get(`${url}/lah/user/${user_ktp}`,
       {
         headers: {
             "authorization": "x-control-user",
@@ -31,7 +32,7 @@ export const userBorrows = (user_ktp) => {
 export const postBorrow = (data) =>{
     return {
         type:'POST_BORROW',
-        payload :axios.post(`http://localhost:6969/borrow`,data,
+        payload :axios.post(`${url}/borrow`,data,
         {
           headers: {
               "authorization": "x-control-user",
@@ -45,7 +46,7 @@ export const postBorrow = (data) =>{
 export const updateBorrow = (data, bookid) => {
     return {
       type: 'UPDATE_BORROW',
-      payload: axios.patch(`http://localhost:6969/borrow/${bookid}`,data,
+      payload: axios.patch(`${url}/borrow/${bookid}`,data,
       {
         headers: {
             "authorization": "x-control-user",

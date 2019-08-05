@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+const url = 'https://sluxzer-library.herokuapp.com';
+
 export const getUser = () => {
     return {
         type: 'GET_USER',
-        payload: axios.get('http://localhost:6969/user/',
+        payload: axios.get(`${url}`,
             {
                 headers: {
                     "authorization": "x-control-user",
@@ -18,7 +20,7 @@ export const getUser = () => {
 export const getUserId = (userid) => {
     return {
         type: 'GET_USERID',
-        payload: axios.get(`http://localhost:6969/user/${userid}`,
+        payload: axios.get(`${url}/user/${userid}`,
             {
                 headers: {
                     "authorization": "x-control-user",
@@ -33,7 +35,7 @@ export const getUserId = (userid) => {
 export const deleteMember = (userid) => {
     return {
         type: 'DELETE_USER', userid,
-        payload: axios.delete(`http://localhost:6969/member/${userid}`,
+        payload: axios.delete(`${url}/member/${userid}`,
         {
             headers: {
                 "authorization": "x-control-user",
@@ -48,7 +50,7 @@ export const deleteMember = (userid) => {
 export const register = (data) => {
     return {
         type: 'REGISTER',
-        payload: axios.post(`http://localhost:6969/register`, data)
+        payload: axios.post(`${url}/register`, data)
      
     }
 };
@@ -57,7 +59,7 @@ export const register = (data) => {
 export const login = (data) => {
     return {
         type: 'LOGIN',
-        payload: axios.post(`http://localhost:6969/login`, data, {
+        payload: axios.post(`${url}/login`, data, {
             headers: {
                 "authorization": "x-control-user",
             }
@@ -74,7 +76,7 @@ export const login = (data) => {
 export const logout = (userid) => {
     return {
         type: 'LOGOUT', userid,
-        payload: axios.patch(`http://localhost:6969/token/${userid}`)
+        payload: axios.patch(`${url}/token/${userid}`)
      
     }
 };

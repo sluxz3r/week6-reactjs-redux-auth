@@ -13,7 +13,7 @@ class Search extends Component {
   search = async (val) => {
     this.setState({ loading: true });
     const res = await axios(
-      `http://localhost:6969/name?name=${val}`
+      `https://sluxzer-library.herokuapp.com/name?name=${val}`
     );
     const books = await res.data.result;
     this.setState({ books, loading: false });
