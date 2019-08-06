@@ -73,7 +73,7 @@ class Books extends Component {
                 books: this.props.book,
             });
         }
-
+        console.log(this.state.page)
         return (
             <div>
                 <div className="table-div"></div>
