@@ -61,9 +61,10 @@ class Nav extends Component {
             (<DropdownToggle>
               Hi {name}
             </DropdownToggle>) :
-            (<DropdownToggle href='/login/'>
+            
+            (<Link to='/login'><DropdownToggle>
               Login
-        </DropdownToggle>)}
+        </DropdownToggle></Link>)}
 
           {// eslint-disable-next-line
             list != undefined ?

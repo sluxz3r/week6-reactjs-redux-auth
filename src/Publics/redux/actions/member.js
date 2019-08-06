@@ -5,7 +5,7 @@ const url = 'https://sluxzer-library.herokuapp.com';
 export const getUser = () => {
     return {
         type: 'GET_USER',
-        payload: axios.get(`${url}`,
+        payload: axios.get(`${url}/user`,
             {
                 headers: {
                     "authorization": "x-control-user",
