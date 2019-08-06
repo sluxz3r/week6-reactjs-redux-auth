@@ -62,12 +62,13 @@ class Books extends Component {
         let next = async () => {
             this.setState({
                 page:this.state.page + 1
+            }).then(()=>{
+                const page = this.state.page;
+                await this.props.dispatch(getPagination(page));
+                this.setState({
+                    books: this.props.book,
+                });
             })
-            const page = this.state.page;
-            await this.props.dispatch(getPagination(page));
-            this.setState({
-                books: this.props.book,
-            });
         }
         let prev = async () => {
             const page = this.state.page;
