@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import '../assets/BooksList.css';
 
-import { getPagination, deleteBook } from '../Publics/redux/actions/book';
+import { getPagination, getBooks, deleteBook} from '../Publics/redux/actions/book';
 import { getUserId } from '../Publics/redux/actions/user';
 
 class Books extends Component {
@@ -12,20 +12,45 @@ class Books extends Component {
         index: '',
         books: [],
         user: [],
-        page: 1
+        page: 1,
+        sumPage:''
     };
-    componentDidMount = async () => {
+
+    componentDidMount = () => {
+        this.makeRequest()
+    }
+
+    makeRequest = async () => {
         const userid = localStorage.userid;
         const page = this.state.page;
         await this.props.dispatch(getPagination(page));
         this.setState({
             books: this.props.book,
         });
+        await this.props.dispatch(getBooks());
+        this.setState({
+            sumPage: this.props.book.bookList.length
+        });
         await this.props.dispatch(getUserId(userid));
         this.setState({
             user: this.props.user,
         });
     };
+
+    next = () => {
+        this.setState({
+            page: this.state.page + 1,
+        }, () => {
+            this.makeRequest()
+        })
+    }
+    prev = () => {
+        this.setState({
+            page: this.state.page - 1,
+        }, () => {
+            this.makeRequest()
+        })
+    }
     render() {
         const confirm = (bookid) => {
             swal({
@@ -59,23 +84,9 @@ class Books extends Component {
         const { user } = this.state;
         const users = user.userList;
         const status = users ? users[0].status : '';
-        let next = async () => {
-            this.setState({
-                page:this.state.page + 1
-            }).then(()=>{
-                const page = this.state.page;
-                await this.props.dispatch(getPagination(page + 1));
-                this.setState({
-                    books: this.props.book,
-                });
-            })
-        }
-        let prev = async () => {
-            this.setState({
-                page:this.state.page - 1
-            })
-        }
-        console.log(this.state.page)
+
+        const sum = Math.ceil(this.state.sumPage / 4)
+        console.log(sum)    
         return (
             <div>
                 <div className="table-div"></div>
@@ -127,20 +138,44 @@ class Books extends Component {
                             )
                         })}
                 </table>
-                <div className='button-next'>
-                    <button style={{
-                        color: 'white',
-                        backgroundColor: 'black',
-                        marginRight: '10px'
-                    }}
-                        onClick={prev}>Prev</button>
 
-                    <button style={{
-                        color: 'white',
-                        backgroundColor: 'black',
-                        marginRight: '10px'
-                    }}
-                        onClick={next}>Next</button>
+                <div className='button-next'>
+                    {this.state.page == 1 ?
+                        (<button
+                            style={{
+                                color: 'white',
+                                backgroundColor: 'black',
+                                marginRight: '10px'
+                            }}
+                            onClick={this.prev}
+                            disabled>Prev
+                        </button>) :
+                        (<button
+                            style={{
+                                color: 'white',
+                                backgroundColor: 'black',
+                                marginRight: '10px'
+                            }}
+                            onClick={this.prev}>Prev</button>)}
+
+                    {this.state.page == sum ?
+                        (<button
+                            style={{
+                                color: 'white',
+                                backgroundColor: 'black',
+                                marginRight: '10px'
+                            }}
+                            onClick={this.next}
+                            disabled>Next
+                            </button>) :
+                        (<button
+                            style={{
+                                color: 'white',
+                                backgroundColor: 'black',
+                                marginRight: '10px'
+                            }}
+                            onClick={this.next}>Next
+                            </button>)}
                 </div>
             </div>
         )
