@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'https://sluxzer-library.herokuapp.com';
+const url = 'https://lib-books-test.herokuapp.com/';
 
 export const getBooks = () => {
     return {
