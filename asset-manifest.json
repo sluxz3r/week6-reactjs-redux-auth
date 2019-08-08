@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/week6-reactjs-redux-auth/static/css/main.4bd5a722.chunk.css",
+    "main.js": "/week6-reactjs-redux-auth/static/js/main.aca329bd.chunk.js",
+    "main.js.map": "/week6-reactjs-redux-auth/static/js/main.aca329bd.chunk.js.map",
+    "runtime~main.js": "/week6-reactjs-redux-auth/static/js/runtime~main.144fedd0.js",
+    "runtime~main.js.map": "/week6-reactjs-redux-auth/static/js/runtime~main.144fedd0.js.map",
+    "static/css/2.0624914a.chunk.css": "/week6-reactjs-redux-auth/static/css/2.0624914a.chunk.css",
+    "static/js/2.66740bd8.chunk.js": "/week6-reactjs-redux-auth/static/js/2.66740bd8.chunk.js",
+    "static/js/2.66740bd8.chunk.js.map": "/week6-reactjs-redux-auth/static/js/2.66740bd8.chunk.js.map",
+    "index.html": "/week6-reactjs-redux-auth/index.html",
+    "precache-manifest.5ad8200916d99056679c51452fcd5ea3.js": "/week6-reactjs-redux-auth/precache-manifest.5ad8200916d99056679c51452fcd5ea3.js",
+    "service-worker.js": "/week6-reactjs-redux-auth/service-worker.js",
+    "static/css/2.0624914a.chunk.css.map": "/week6-reactjs-redux-auth/static/css/2.0624914a.chunk.css.map",
+    "static/css/main.4bd5a722.chunk.css.map": "/week6-reactjs-redux-auth/static/css/main.4bd5a722.chunk.css.map"
+  }
+}
