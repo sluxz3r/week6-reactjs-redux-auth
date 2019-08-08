@@ -58,11 +58,11 @@ class Nav extends Component {
 
           {// eslint-disable-next-line
             list != undefined ?
-            (<DropdownToggle>
+            (<DropdownToggle style={{fontFamily:'Arial, Helvetica, sans-serif'}}>
               Hi {name}
             </DropdownToggle>) :
             
-            (<Link to='/login'><DropdownToggle>
+            (<Link to='/login'><DropdownToggle style={{fontFamily:'Arial, Helvetica, sans-serif'}}>
               Login
         </DropdownToggle></Link>)}
 
@@ -71,9 +71,10 @@ class Nav extends Component {
             (<DropdownMenu>
               {// eslint-disable-next-line
                 status == 'admin' ?
-                (<DropdownItem href='/admin/'>Member List</DropdownItem>) :
-                (<DropdownItem href='/member/' >Profile</DropdownItem>)}
-               <Link style={{textDecoration:'none'}} onClick={del.bind(this)}><DropdownItem>Logout</DropdownItem></Link>
+                (<div><DropdownItem style={{fontFamily:'Arial, Helvetica, sans-serif'}} href='/admin/'>Member List</DropdownItem>
+                <DropdownItem style={{fontFamily:'Arial, Helvetica, sans-serif'}} href='/admin/pending/'>Pending List</DropdownItem></div>) :
+                (<DropdownItem style={{fontFamily:'Arial, Helvetica, sans-serif'}} href='/member/' >Profile</DropdownItem>)}
+               <Link style={{textDecoration:'none'}} onClick={del.bind(this)}><DropdownItem style={{fontFamily:'Arial, Helvetica, sans-serif', fontWeight:'bold'}}>Logout</DropdownItem></Link>
             </DropdownMenu>) :
             ('')}
         </Dropdown>

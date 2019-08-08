@@ -21,6 +21,8 @@ import Logout from './Screens/logout';
 import book from './Components/bookdetail';
 import denda from './Components/denda';
 
+import pendingList from './Screens/pendingList'
+
 class App extends Component {
   render() {
     return (
@@ -38,6 +40,7 @@ class App extends Component {
             <Route exact path={'/admin/'} component={admin} />
             <Route path={'/member/:userid'} component={BorrowList} />
             <Route exact path={'/member/'} component={Profile} />
+            <Route exact path={'/admin/pending/'} component={pendingList} />
 
             <Route path={'/booq/:bookid'} component={denda} />
             <Route path={'/books/:bookid'} component={UpdateBook} />
