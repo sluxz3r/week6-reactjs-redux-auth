@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'https://lib-books-test.herokuapp.com/';
+const url = 'https://lib-books-test.herokuapp.com';
 
 export const getUser = () => {
     return {
